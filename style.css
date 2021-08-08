@@ -1,0 +1,6 @@
+span, div, svg {
+    font-style: normal white;
+}
+.hidden {
+    display: none;
+}
