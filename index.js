@@ -43,3 +43,24 @@ const timer = setInterval(drawClock, 500);
 
 
 document.getElementsByTagName("body")[0].style.backgroundImage = `url(${backgroundURLS[parseInt(Math.random()*3)]})`;
+
+
+const APIKEY = "e9c163fdaa07e68309ffb352026610af";
+function geoSuccess(position) {
+    console.log(position);
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${APIKEY}&units=metric`)
+    .then(res=>res.json())
+    .then(json=>{
+        document.querySelector("#weather > span:first-child").innerHTML = json.name;
+        document.querySelector("#weather > span:nth-of-type(2)").innerHTML = json.weather[0].main;
+        document.querySelector("#weather > span:nth-of-type(3)").innerHTML = `${json.main.temp}°C`;
+        document.querySelector("#weather > span:nth-of-type(4)").innerHTML = json.main.humidity;
+    });
+}
+function geoFail() {
+
+}
+navigator.geolocation.getCurrentPosition(geoSuccess, geoFail);
+
+
+const todos = localStorage.getItem("todos");

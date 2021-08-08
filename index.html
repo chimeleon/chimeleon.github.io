@@ -8,6 +8,12 @@
     <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
+    <div id="weather">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <div id="greeting" class="hidden">
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="10pt" height="10pt" viewBox="0 0 1280.000000 1280.000000"
@@ -37,12 +43,12 @@ m885 -544 c593 -56 1138 -188 1683 -406 193 -78 571 -263 752 -369 869 -510
 </svg>
 <span class="clock"></span>
         <h1></h1>
-        <div class="todo-list">
-            <span class="todo-list-title">What is your main focus for tiday?</span><br/>
-            <input type="text" name="add-todo" />
+        <form id="todo-form" class="todo-list">
+            <span class="todo-list-title">What is your main focus for today?</span><br/>
+            <input type="text" name="add-todo" required />
             <ul class="todos">
             </ul>
-        </div>
+        </form>
     </div>
     <form id="login-form" class="hidden">
         <span>Hello, what's your name?</span>
