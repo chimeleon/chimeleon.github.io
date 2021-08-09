@@ -63,4 +63,49 @@ function geoFail() {
 navigator.geolocation.getCurrentPosition(geoSuccess, geoFail);
 
 
-const todos = localStorage.getItem("todos");
+const todos = JSON.parse(localStorage.getItem("todos"))  || {};
+const todoForm = document.querySelector("#todo-form");
+const todoList = todoForm.querySelector(".todos");
+
+function paintTodo(text, id) {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    const div = document.createElement("div");
+    const button = document.createElement("button");
+    li.appendChild(span);
+    li.innerText = text;
+    button.innerText = "X";
+    div.innerText = id;
+
+    li.appendChild(button);
+
+    button.addEventListener("click", function(e) {
+        if(e.explicitOriginalTarget.name === "add-todo") return;
+        delete todos[div.innerText];
+        li.remove();
+        updateTodos();
+    });
+    todoList.appendChild(li);
+    updateTodos();
+}
+
+function addTodo(task) {
+    const id = Date.now();
+    todos[id] = task;
+    updateTodos();
+    paintTodo(task, id);
+}
+
+function updateTodos() {
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+for(task in todos) {
+    paintTodo(todos[task], task);
+}
+todoForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    addTodo(todoForm.querySelector("[name=add-todo]").value);
+    todoForm.querySelector("[name=add-todo]").value = "";
+})
